@@ -101,25 +101,21 @@ public class WriteData {
 
                 extendedInputs = isLastInput(rawData, i, j);
 
-                /* FIXME: This is broken right now, will look into it later. */
                 /* If there is more than one input, separate them with a comma, unless it's the last input. */
                 if (extendedInputs && j != rawData[0].length - 1 && !rawData[i][j].isEmpty()) {
-                    instructions[i] += ",";
+                    instructions[i]
+                            += ",";
                 }
             }
         }
         return instructions;
     }
 
-    private static void defineRowBools() {
-
-    }
-
     private static boolean isLastInput(String[][] rawData, int row, int i) {
         int count = 0;
 
         while (i < rawData[row].length) {
-            if (rawData[row][i].isEmpty()) {
+            if (!rawData[row][i].isEmpty()) {
                 count++;
             }
 
