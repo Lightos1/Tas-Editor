@@ -4,6 +4,8 @@
 ## TODO:
  - [x] Implement working input "conversion"
  - [ ] Add button holding/releasing rather than just pressing it for a few frames
+   - button pressing and releasing has been added
+   - holding has not been implemented yet
  - [ ] Add stick  input support
  - [ ] Improve sending inputs
  - [ ] Add proper controller disconnection
