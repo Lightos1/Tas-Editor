@@ -103,8 +103,7 @@ public class WriteData {
 
                 /* If there is more than one input, separate them with a comma, unless it's the last input. */
                 if (extendedInputs && j != rawData[0].length - 1 && !rawData[i][j].isEmpty()) {
-                    instructions[i]
-                            += ",";
+                    instructions[i] += ",";
                 }
             }
         }
