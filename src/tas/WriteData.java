@@ -56,6 +56,8 @@ public class WriteData {
 
         for (int i = 0; i < rawData.length; i++) {
             for (int j = 0; j < rawData[i].length; j++) {
+                boolean hold = false;
+
                 if (j == 0) {
                     if (isNotEmpty(rawData, i)) {
                         instructions[i] = "clickSeq ";
@@ -71,7 +73,7 @@ public class WriteData {
 
                     /* The first input in the tas will always be considered a press or short press, the final input a release. */
                     /* If the tas is only one frame long, it's a one frame input. */
-                    if (i == 0 && i == rawData.length -1) {
+                    if (i == 0 && i == rawData.length - 1) {
                         previousRowEmpty = true;
                         nextRowEmpty = true;
                     } else if (i == 0) {
@@ -86,25 +88,34 @@ public class WriteData {
                     }
 
                     if (previousRowEmpty && !nextRowEmpty) {
-                        /* Press. */
                         instructions[i] += "+";
                     } else if (!previousRowEmpty && nextRowEmpty) {
-                        /* Release. */
                         instructions[i] += "-";
+                    } else if (previousRowEmpty && nextRowEmpty) {
+                        /* One frame -> nop. */
+                    } else {
+                        hold = true;
                     }
 
-                    /* If both of these fail, it will be pressed and released for one frame. */
+                    /* Add the input if we aren't holding anything. */
+                    if (!hold) {
+                        instructions[i] += rawData[i][j];
+                    }
 
-                    /* Add the input. */
-                    instructions[i] += rawData[i][j];
                 }
 
                 extendedInputs = isLastInput(rawData, i, j);
 
-                /* If there is more than one input, separate them with a comma, unless it's the last input. */
-                if (extendedInputs && j != rawData[0].length - 1 && !rawData[i][j].isEmpty()) {
+                /* If there is more than one input, separate them with a comma, unless it's the last input or held. */
+                /* FIXME: This is a bit of a mess, clean up? */
+                if (extendedInputs && j != rawData[0].length - 1 && !rawData[i][j].isEmpty() && !hold) {
                     instructions[i] += ",";
                 }
+
+            }
+            /* Remove clickSeq in case the entire input row stays the same */
+            if (instructions[i].trim().equals("clickSeq")) {
+                instructions[i] = "";
             }
         }
         return instructions;
