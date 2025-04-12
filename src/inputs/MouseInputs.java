@@ -29,10 +29,12 @@ public class MouseInputs implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override

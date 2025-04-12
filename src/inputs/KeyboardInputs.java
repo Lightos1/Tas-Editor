@@ -1,7 +1,8 @@
 package inputs;
 
+import tas.ReadAndSendData;
 import ui.InputField;
-import tas.SaveData;
+import tas.WriteData;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,8 +21,8 @@ public class KeyboardInputs implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER -> inputField.addRow();
             case KeyEvent.VK_BACK_SPACE -> inputField.deleteRow();
-            case KeyEvent.VK_W -> SaveData.saveInputs(inputField);
-            case KeyEvent.VK_R -> SaveData.playTas();
+            case KeyEvent.VK_W -> WriteData.saveInputs(inputField);
+            case KeyEvent.VK_R -> ReadAndSendData.playTas();
         }
     }
 
