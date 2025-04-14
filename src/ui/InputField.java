@@ -22,7 +22,7 @@ public class InputField {
     public InputField(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
 
-        final int COLS = 17;
+        final int COLS = 19;
         int rows = 1;
 
         tableModel = new Table(rows, COLS);
@@ -86,7 +86,7 @@ public class InputField {
     public static class Table extends AbstractTableModel {
 
         private final List<Object[]> inputs;
-        private final String[] columnNames = {"Frame", "A", "B", "X", "Y", "ZR", "ZL", "R", "L", "PLUS", "MINUS", "DLEFT", "DUP", "DRIGHT", "DDOWN", "LSTICK", "RSTICK"};
+        private final String[] columnNames = {"Frame", "A", "B", "X", "Y", "ZR", "ZL", "R", "L", "PLUS", "MINUS", "DLEFT", "DUP", "DRIGHT", "DDOWN", "LSTICK", "RSTICK", "LEFT", "RIGHT"};
 
         public Table(int row, int cols) {
             inputs = new ArrayList<>();

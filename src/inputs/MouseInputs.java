@@ -18,7 +18,7 @@ public class MouseInputs implements MouseListener{
         /* TODO: Improve readability */
         int row = inputField.getInputs().rowAtPoint(e.getPoint());
         int col = inputField.getInputs().columnAtPoint(e.getPoint());
-        if (row >= 0 && col > 0) {
+        if (row >= 0 && col > 0 && col < 17) {
             if (inputField.getTableModel().getValueAt(row, col) == "") {
                 inputField.getTableModel().setValueAt(inputField.getTableModel().getColumnName(col), row, col);
             } else {

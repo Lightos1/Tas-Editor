@@ -9,7 +9,8 @@ public class WriteData {
 
     public static void saveInputs(InputField inputs) {
         int row = inputs.getTableModel().getRowCount();
-        int col = inputs.getTableModel().getColumnCount();
+        /* Excluding left and right stick positions. */
+        int col = inputs.getTableModel().getColumnCount() - 2;
 
         /* Convert the inputs of the tas editor field to an array. */
         String[][] data = convertInputs(inputs, row, col - 1);
