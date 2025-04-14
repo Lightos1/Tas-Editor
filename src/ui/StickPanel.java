@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 public class StickPanel extends JPanel {
 
+    private final Sticktype sticktype;
     private static final int PANEL_SIZE = 200;
     private static final int RADIUS = 100;
     private static final int CENTER_X = PANEL_SIZE / 2;
@@ -18,7 +19,11 @@ public class StickPanel extends JPanel {
     private final JTextField xPos;
     private final JTextField yPos;
 
-    public StickPanel() {
+    private final InputField inputField;
+
+    public StickPanel(InputField inputField, Sticktype sticktype) {
+        this.sticktype = sticktype;
+        this.inputField = inputField;
         setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE + 40));
         setLayout(null);
 
@@ -89,6 +94,7 @@ public class StickPanel extends JPanel {
 
         xPos.setText(String.valueOf((int) (x / (double) RADIUS * 32768)));
         yPos.setText(String.valueOf((int) (y / (double) RADIUS * 32768)));
+        inputField.getTableModel().setValueAt(xPos.getText() + "," + yPos.getText(), inputField.getHighlightedRow(), sticktype.getValue());
         repaint();
     }
 

@@ -13,7 +13,7 @@ public class UI {
     }
 
     public void addTopBar(JFrame jFrame) {
-        new TopBar(jFrame);
+        new TopBar(jFrame, editorField);
     }
 
     public InputField getEditorField() {

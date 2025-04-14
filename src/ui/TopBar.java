@@ -6,11 +6,11 @@ public class TopBar {
 
     private boolean closed = true;
 
-    public TopBar(JFrame jFrame) {
+    public TopBar(JFrame jFrame, InputField inputField) {
         JMenuBar jMenuBar = new JMenuBar();
 
         addFileOption(jMenuBar);
-        addTasOption(jMenuBar);
+        addTasOption(jMenuBar, inputField);
 
         jFrame.setJMenuBar(jMenuBar);
     }
@@ -26,7 +26,7 @@ public class TopBar {
         jMenuBar.add(fileMenu);
     }
 
-    private void addTasOption(JMenuBar jMenuBar) {
+    private void addTasOption(JMenuBar jMenuBar, InputField inputField) {
         JMenu tasMenu = new JMenu("TAS");
         JMenuItem playTas = new JMenuItem("Play");
         JMenuItem stickInputs = new JMenuItem("Stick inputs");
@@ -40,15 +40,15 @@ public class TopBar {
         tasMenu.add(disconnectController);
         tasMenu.add(config);
 
-        listenerStickInputs(stickInputs);
+        listenerStickInputs(stickInputs, inputField);
 
         jMenuBar.add(tasMenu);
     }
 
-    private void listenerStickInputs(JMenuItem stickInputs) {
+    private void listenerStickInputs(JMenuItem stickInputs, InputField inputField) {
         stickInputs.addActionListener(_ -> {
             if (closed) {
-                new StickInputWindow(this);
+                new StickInputWindow(this, inputField);
                 closed = false;
             }
         });

@@ -70,6 +70,10 @@ public class InputField {
         return tableModel;
     }
 
+    public int getHighlightedRow() {
+        return highlightedRow;
+    }
+
     public void setHighlightedRow(int highlightedRow) {
         this.highlightedRow = highlightedRow;
     }
@@ -82,17 +86,19 @@ public class InputField {
 
     public void addRow() {
         int col = inputs.getSelectedColumn();
-        tableModel.addRow(highlightedRow);
+        tableModel.addRow(highlightedRow + 1);
         inputs.changeSelection(highlightedRow, col, false, false);
         inputs.editCellAt(highlightedRow, col);
         Component editor = inputs.getEditorComponent();
         if (editor != null) {
             editor.requestFocusInWindow();
         }
+        highlightedRow++;
     }
 
     public void deleteRow() {
         tableModel.deleteRow(highlightedRow);
+        highlightedRow--;
     }
 
     public static class Table extends AbstractTableModel {
@@ -150,6 +156,5 @@ public class InputField {
             inputs.remove(highlightedRow);
             fireTableRowsDeleted(highlightedRow, highlightedRow);
         }
-
     }
 }
