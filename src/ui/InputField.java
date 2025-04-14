@@ -18,6 +18,7 @@ public class InputField {
     private final MainPanel mainPanel;
     private final JTable inputs;
     private final Table tableModel;
+    private int highlightedRow = 0;
 
     public InputField(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -69,6 +70,10 @@ public class InputField {
         return tableModel;
     }
 
+    public void setHighlightedRow(int highlightedRow) {
+        this.highlightedRow = highlightedRow;
+    }
+
     public void setSize() {
         Dimension panelSize = mainPanel.getSize();
         scrollPane.setPreferredSize(panelSize);
@@ -76,11 +81,18 @@ public class InputField {
     }
 
     public void addRow() {
-        tableModel.addRow();
+        int col = inputs.getSelectedColumn();
+        tableModel.addRow(highlightedRow);
+        inputs.changeSelection(highlightedRow, col, false, false);
+        inputs.editCellAt(highlightedRow, col);
+        Component editor = inputs.getEditorComponent();
+        if (editor != null) {
+            editor.requestFocusInWindow();
+        }
     }
 
     public void deleteRow() {
-        tableModel.deleteRow();
+        tableModel.deleteRow(highlightedRow);
     }
 
     public static class Table extends AbstractTableModel {
@@ -121,18 +133,22 @@ public class InputField {
             fireTableCellUpdated(row, col);
         }
 
-        public void addRow() {
-            inputs.add(new Object[getColumnCount()]);
-            fireTableRowsInserted(inputs.size() - 1, inputs.size() - 1);
-        }
-
-        public void deleteRow() {
-            if (inputs.isEmpty()) {
+        public void addRow(int highlightedRow) {
+            if (highlightedRow < 0 || highlightedRow > inputs.size()) {
                 return;
             }
 
-            inputs.removeLast();
-            fireTableRowsDeleted(inputs.size() - 1, inputs.size() - 1);
+            inputs.add(highlightedRow, new Object[getColumnCount()]);
+            fireTableRowsInserted(highlightedRow, highlightedRow);
+        }
+
+        public void deleteRow(int highlightedRow) {
+            if (highlightedRow < 0 || highlightedRow > inputs.size() || inputs.isEmpty()) {
+                return;
+            }
+
+            inputs.remove(highlightedRow);
+            fireTableRowsDeleted(highlightedRow, highlightedRow);
         }
 
     }

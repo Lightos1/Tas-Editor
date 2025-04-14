@@ -2,6 +2,7 @@ package inputs;
 
 import ui.InputField;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,12 +19,17 @@ public class MouseInputs implements MouseListener{
         /* TODO: Improve readability */
         int row = inputField.getInputs().rowAtPoint(e.getPoint());
         int col = inputField.getInputs().columnAtPoint(e.getPoint());
+
+        inputField.setHighlightedRow(row);
         if (row >= 0 && col > 0 && col < 17) {
-            if (inputField.getTableModel().getValueAt(row, col) == "") {
-                inputField.getTableModel().setValueAt(inputField.getTableModel().getColumnName(col), row, col);
-            } else {
-                inputField.getTableModel().setValueAt("", row, col);
-            }
+            Object value = inputField.getTableModel().getValueAt(row, col);
+            SwingUtilities.invokeLater(() -> {
+                if (value == null || value.toString().isEmpty()) {
+                    inputField.getTableModel().setValueAt(inputField.getTableModel().getColumnName(col), row, col);
+                } else {
+                    inputField.getTableModel().setValueAt("", row, col);
+                }
+            });
         }
     }
 
