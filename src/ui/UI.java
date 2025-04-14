@@ -8,6 +8,7 @@ public class UI {
 
     public UI(MainPanel mainPanel) {
         editorField = new InputField(mainPanel);
+        new StickInputWindow();
     }
 
     public InputField getEditorField() {
