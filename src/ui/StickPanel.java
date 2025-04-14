@@ -73,6 +73,7 @@ public class StickPanel extends JPanel {
             x = (int) normX;
             y = (int) normY;
 
+            inputField.getTableModel().setValueAt(xPos.getText() + "," + yPos.getText(), inputField.getHighlightedRow(), sticktype.getValue());
             repaint();
         } catch (NumberFormatException _) {
 

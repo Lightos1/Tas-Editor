@@ -3,6 +3,7 @@ package tas;
 import ui.InputField;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class WriteData {
@@ -18,6 +19,7 @@ public class WriteData {
         /* Convert the array to usable instructions. */
         String[] instructions = convertToInstructions(data, row);
         addDelays(instructions);
+        addStickInputs(instructions, inputs, row, col);
 
         /* TODO: Add file selector, for now this is hardcoded. */
         String path = "C:\\Users\\user\\Desktop\\inputs.txt";
@@ -55,6 +57,35 @@ public class WriteData {
                 lastNotEmpty = i;
             }
         }
+    }
+
+    private static void addStickInputs(String[] instructions, InputField inputs, int row, int col) {
+        int k = col;
+
+        String[] charSet = {"%", ",&"};
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (inputs.getTableModel().getValueAt(i,k) != null && !inputs.getTableModel().getValueAt(i,k).toString().isEmpty()) {
+                    if (j == 0) {
+                        if (instructions[i].isEmpty()) {
+                            instructions[i] += "clickSeq ";
+                        } else {
+                            instructions[i] += ",";
+                        }
+                    }
+
+                    instructions[i] += charSet[j] + inputs.getTableModel().getValueAt(i, k);
+                    k++;
+                }
+            }
+            k = col;
+        }
+
+        for (int i = 0; i < instructions.length; i++) {
+            System.out.println(instructions[i]);
+        }
+
     }
 
     private static String[] convertToInstructions(String[][] rawData, int row) {
