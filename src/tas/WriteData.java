@@ -17,17 +17,10 @@ public class WriteData {
         /* Convert the array to usable instructions. */
         String[] instructions = convertToInstructions(data, row);
         addDelays(instructions);
-        print(instructions);
 
         /* TODO: Add file selector, for now this is hardcoded. */
         String path = "C:\\Users\\user\\Desktop\\inputs.txt";
         writeToFile(path, instructions);
-    }
-
-    private static void print(String[] instructions) {
-        for (int i = 0; i < instructions.length; i++) {
-            System.out.println(instructions[i]);
-        }
     }
 
     private static String[][] convertInputs(InputField inputs, int row, int col) {
