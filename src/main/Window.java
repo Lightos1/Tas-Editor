@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import ui.TopBar;
 import ui.UI;
 
 public class Window {
@@ -38,6 +41,16 @@ public class Window {
                 }
             });
         }
+    }
+
+    /* This is to prevent multiple stick input windows from being open at the same time. */
+    public void addCloseListener(TopBar topBar) {
+        jFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                topBar.setClosed(true);
+            }
+        });
     }
 
     public JFrame getJFrame() {

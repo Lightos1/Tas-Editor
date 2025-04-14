@@ -7,9 +7,10 @@ import java.awt.*;
 
 public class StickInputWindow {
 
-    public StickInputWindow() {
+    public StickInputWindow(TopBar topBar) {
         /* This is ugly, but I don't care. */
         Window stickInputsWindow = new Window(null, null, "Stick-Inputs", new Dimension(500, 500));
+        stickInputsWindow.addCloseListener(topBar);
         JPanel stickPanel = new JPanel(new GridLayout(1, 2));
 
         StickPanel leftStick = new StickPanel();
