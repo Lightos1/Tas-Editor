@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 public class ReadAndSendData {
 
+    private static int port = 6000;
+    private static String ip = "192.168.0.20";
+
     /* TODO: Improve this. */
     public static void playTas() {
-        int port = 6000;
-        String ip = "192.168.0.20";
 
         String[] inputs = readFile();
 
@@ -23,6 +24,15 @@ public class ReadAndSendData {
             }
         } catch (IOException e) {
 
+        }
+    }
+
+    public static void disconnect() throws IOException {
+        Socket socket = new Socket(ip, port);
+
+        /* You *probably* don't have to send it 100 times, but this works for now. */
+        for (int i = 0; i < 100; i++) {
+            sendInput(socket, "detachController");
         }
     }
 

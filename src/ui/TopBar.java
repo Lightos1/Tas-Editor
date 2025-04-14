@@ -1,6 +1,9 @@
 package ui;
 
+import tas.ReadAndSendData;
+
 import javax.swing.*;
+import java.io.IOException;
 
 public class TopBar {
 
@@ -41,6 +44,7 @@ public class TopBar {
         tasMenu.add(config);
 
         listenerStickInputs(stickInputs, inputField);
+        detachListener(disconnectController);
 
         jMenuBar.add(tasMenu);
     }
@@ -50,6 +54,16 @@ public class TopBar {
             if (closed) {
                 new StickInputWindow(this, inputField);
                 closed = false;
+            }
+        });
+    }
+
+    private void detachListener(JMenuItem disconnectController) {
+        disconnectController.addActionListener(_ -> {
+            try {
+                ReadAndSendData.disconnect();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
     }
