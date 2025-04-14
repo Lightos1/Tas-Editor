@@ -12,7 +12,7 @@ public class ReadAndSendData {
     /* TODO: Improve this. */
     public static void playTas() {
         int port = 6000;
-        String ip = "192.168.0.18";
+        String ip = "192.168.0.20";
 
         String[] inputs = readFile();
 

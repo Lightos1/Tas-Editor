@@ -14,24 +14,20 @@ public class WriteData {
         /* Convert the inputs of the tas editor field to an array. */
         String[][] data = convertInputs(inputs, row, col - 1);
 
-        print(data);
-
         /* Convert the array to usable instructions. */
         String[] instructions = convertToInstructions(data, row);
+        addDelays(instructions);
+        print(instructions);
 
         /* TODO: Add file selector, for now this is hardcoded. */
         String path = "C:\\Users\\user\\Desktop\\inputs.txt";
         writeToFile(path, instructions);
     }
 
-    private static void print(String[][] data) {
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data[i].length; j++) {
-                System.out.print(data[i][j] + " | ");
-            }
-            System.out.println();
+    private static void print(String[] instructions) {
+        for (int i = 0; i < instructions.length; i++) {
+            System.out.println(instructions[i]);
         }
-        System.out.println();
     }
 
     private static String[][] convertInputs(InputField inputs, int row, int col) {
@@ -47,6 +43,24 @@ public class WriteData {
             }
         }
         return inputData;
+    }
+
+    private static void addDelays(String[] instructions) {
+        int lastNotEmpty = -1;
+        int j = 0;
+
+        for (int i = 0; i < instructions.length; i++) {
+            if (instructions[i].isEmpty()) {
+                j++;
+            } else {
+                if (lastNotEmpty != -1 && j > 1) {
+                    /* TODO: The delay time is hardcoded right now, will depend on the actual config later. */
+                    instructions[lastNotEmpty] += ",W" + (30 * j);
+                    j = 0;
+                }
+                lastNotEmpty = i;
+            }
+        }
     }
 
     private static String[] convertToInstructions(String[][] rawData, int row) {
@@ -88,8 +102,10 @@ public class WriteData {
                     }
 
                     if (previousRowEmpty && !nextRowEmpty) {
+                        /* Press. */
                         instructions[i] += "+";
                     } else if (!previousRowEmpty && nextRowEmpty) {
+                        /* Release. */
                         instructions[i] += "-";
                     } else if (previousRowEmpty && nextRowEmpty) {
                         /* One frame -> nop. */
