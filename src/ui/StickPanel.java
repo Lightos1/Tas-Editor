@@ -19,11 +19,16 @@ public class StickPanel extends JPanel {
     private final JTextField xPos;
     private final JTextField yPos;
 
+    private final int X_AXIS, Y_AXIS;
+
     private final InputField inputField;
 
-    public StickPanel(InputField inputField, Sticktype sticktype) {
+    public StickPanel(InputField inputField, Sticktype sticktype, int X_AXIS, int Y_AXIS) {
         this.sticktype = sticktype;
         this.inputField = inputField;
+        this.X_AXIS = X_AXIS;
+        this.Y_AXIS = Y_AXIS;
+
         setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE + 40));
         setLayout(null);
 
@@ -61,8 +66,8 @@ public class StickPanel extends JPanel {
             inputX = clamp(inputX);
             inputY = clamp(inputY);
 
-            double normX = inputX / 32768.0 * RADIUS;
-            double normY = inputY / 32768.0 * RADIUS;
+            double normX = (inputX * X_AXIS) / (32768.0 * RADIUS);
+            double normY = (inputY * Y_AXIS) / (32768.0 * RADIUS);
 
             if ((normX * normX) + (normY * normY) > RADIUS * RADIUS) {
                 double angle = Math.atan2(normY, normX);
@@ -93,8 +98,8 @@ public class StickPanel extends JPanel {
         x = dx;
         y = dy;
 
-        xPos.setText(String.valueOf((int) (x / (double) RADIUS * 32768)));
-        yPos.setText(String.valueOf((int) (y / (double) RADIUS * 32768)));
+        xPos.setText(String.valueOf((int) ((x * X_AXIS) / (double) RADIUS * 32768)));
+        yPos.setText(String.valueOf((int) ((y * Y_AXIS) / (double) RADIUS * 32768)));
         inputField.getTableModel().setValueAt(xPos.getText() + "," + yPos.getText(), inputField.getHighlightedRow(), sticktype.getValue());
         repaint();
     }

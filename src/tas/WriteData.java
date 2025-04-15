@@ -3,7 +3,6 @@ package tas;
 import ui.InputField;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class WriteData {
@@ -18,9 +17,9 @@ public class WriteData {
 
         /* Convert the array to usable instructions. */
         String[] instructions = convertToInstructions(data, row);
+        cleanUp(instructions);
         addDelays(instructions);
         addStickInputs(instructions, inputs, row, col);
-        /* This is technically a hack but whatever. */
         cleanUp(instructions);
 
         /* TODO: Add file selector, for now this is hardcoded. */
@@ -54,7 +53,7 @@ public class WriteData {
             } else {
                 if (lastNotEmpty != -1 && j > 1) {
                     /* TODO: The delay time is hardcoded right now, will depend on the actual config later. */
-                    instructions[lastNotEmpty] += ",W" + (30 * j);
+                    instructions[lastNotEmpty] += ",W" + (Configs.delay * j);
                     j = 0;
                 }
                 lastNotEmpty = i;
@@ -85,12 +84,9 @@ public class WriteData {
             k = col;
         }
 
-        for (int i = 0; i < instructions.length; i++) {
-            System.out.println(instructions[i]);
-        }
-
     }
 
+    /* This is technically a hack but whatever. */
     private static void cleanUp(String[] instructions) {
         for (int i = 0; i < instructions.length; i++) {
             if (instructions[i].endsWith(",")) {

@@ -13,8 +13,8 @@ public class StickInputWindow {
         stickInputsWindow.addCloseListener(topBar);
         JPanel stickPanel = new JPanel(new GridLayout(1, 2));
 
-        StickPanel leftStick = new StickPanel(inputField, Sticktype.LEFT);
-        StickPanel rightStick = new StickPanel(inputField, Sticktype.RIGHT);
+        StickPanel leftStick = new StickPanel(inputField, Sticktype.LEFT, 1, -1);
+        StickPanel rightStick = new StickPanel(inputField, Sticktype.RIGHT, -1, 1);
 
         stickPanel.add(leftStick);
         stickPanel.add(rightStick);

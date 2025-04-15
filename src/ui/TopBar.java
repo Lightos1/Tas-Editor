@@ -45,6 +45,7 @@ public class TopBar {
 
         listenerStickInputs(stickInputs, inputField);
         detachListener(disconnectController);
+        connectListener(connectTas);
 
         jMenuBar.add(tasMenu);
     }
@@ -58,10 +59,22 @@ public class TopBar {
         });
     }
 
+    /* TODO: Better exception handling */
     private void detachListener(JMenuItem disconnectController) {
         disconnectController.addActionListener(_ -> {
             try {
                 ReadAndSendData.disconnect();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    /* TODO: Better exception handling */
+    private void connectListener(JMenuItem connectTas) {
+        connectTas.addActionListener(_ -> {
+            try {
+                ReadAndSendData.connectAndConfigure();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
