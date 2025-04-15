@@ -42,7 +42,6 @@ public class ReadAndSendData {
     private static void sendInput(Socket socket, String content) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(content + "\r\n");
-        System.out.println(content);
     }
 
     private static String[] readFile() {
