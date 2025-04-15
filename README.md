@@ -5,9 +5,9 @@
 - [x] Implement working input "conversion"
 - [x] Add button holding/releasing rather than just pressing it for a few frames
 - [x] Proper button delay
-- [ ] Add stick input support
+- [x] Add stick input support
 - [ ] Improve sending inputs
-- [ ] Add proper controller disconnection
+- [x] Add proper controller disconnection/connection
 - [ ] Improve gui
 
 ## Credits:
