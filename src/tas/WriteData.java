@@ -20,6 +20,8 @@ public class WriteData {
         String[] instructions = convertToInstructions(data, row);
         addDelays(instructions);
         addStickInputs(instructions, inputs, row, col);
+        /* This is technically a hack but whatever. */
+        cleanUp(instructions);
 
         /* TODO: Add file selector, for now this is hardcoded. */
         String path = "C:\\Users\\user\\Desktop\\inputs.txt";
@@ -71,8 +73,8 @@ public class WriteData {
                     if (j == 0) {
                         if (instructions[i].isEmpty()) {
                             instructions[i] += "clickSeq ";
-                        } else {
-                            instructions[i] += ",";
+                            } else {
+                                instructions[i] += ",";
                         }
                     }
 
@@ -87,6 +89,14 @@ public class WriteData {
             System.out.println(instructions[i]);
         }
 
+    }
+
+    private static void cleanUp(String[] instructions) {
+        for (int i = 0; i < instructions.length; i++) {
+            if (instructions[i].endsWith(",")) {
+                instructions[i] = instructions[i].substring(0, instructions[i].length() - 1);
+            }
+        }
     }
 
     private static String[] convertToInstructions(String[][] rawData, int row) {
