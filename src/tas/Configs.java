@@ -17,5 +17,6 @@ public class Configs {
     public static int invertLY = -1;
     public static int invertRX = -1;
     public static int invertRY = 1;
+    public static String path = "";
 
 }

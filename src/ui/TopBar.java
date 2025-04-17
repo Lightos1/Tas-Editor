@@ -1,6 +1,7 @@
 package ui;
 
 import tas.ReadAndSendData;
+import tas.WriteData;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -13,19 +14,21 @@ public class TopBar {
     public TopBar(JFrame jFrame, InputField inputField) {
         JMenuBar jMenuBar = new JMenuBar();
 
-        addFileOption(jMenuBar);
+        addFileOption(jMenuBar, inputField);
         addTasOption(jMenuBar, inputField);
 
         jFrame.setJMenuBar(jMenuBar);
     }
 
-    private void addFileOption(JMenuBar jMenuBar) {
+    private void addFileOption(JMenuBar jMenuBar, InputField inputField) {
         JMenu fileMenu = new JMenu("File");
         JMenuItem save = new JMenuItem("Save");
         JMenuItem open = new JMenuItem("Open");
 
         fileMenu.add(save);
         fileMenu.add(open);
+
+        addSaveListener(save, inputField);
 
         jMenuBar.add(fileMenu);
     }
@@ -50,6 +53,12 @@ public class TopBar {
         listenerSettings(settings);
 
         jMenuBar.add(tasMenu);
+    }
+
+    private void addSaveListener(JMenuItem save, InputField inputField) {
+        save.addActionListener(_ -> {
+            WriteData.saveInputs(inputField);
+        });
     }
 
     private void listenerStickInputs(JMenuItem stickInputs, InputField inputField) {

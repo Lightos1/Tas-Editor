@@ -2,6 +2,7 @@ package tas;
 
 import ui.InputField;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Objects;
 
@@ -22,10 +23,35 @@ public class WriteData {
         addStickInputs(instructions, inputs, row, col);
         cleanUp(instructions);
 
-        /* TODO: Add file selector, for now this is hardcoded. */
-        String path = "C:\\Users\\user\\Desktop\\inputs.txt";
-        writeToFile(path, instructions);
+        /* TODO: Improve this. */
+        if (Configs.path.isEmpty()) {
+            Configs.path = getPath();
+        }
+
+        if (Configs.path == null) {
+            return;
+        }
+
+        writeToFile(Configs.path, instructions);
     }
+
+    private static String getPath() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Failed to open explorer: " + e.getMessage());
+        }
+
+        JFileChooser explorer = new JFileChooser();
+        explorer.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = explorer.showSaveDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            return explorer.getSelectedFile().getAbsolutePath();
+        }
+        return null;
+    }
+
 
     private static String[][] convertInputs(InputField inputs, int row, int col) {
         String[][] inputData = new String[row][col];
