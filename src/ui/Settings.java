@@ -22,7 +22,7 @@ public class Settings {
         Checkbox invertRX = new Checkbox();
         Checkbox invertRY = new Checkbox();
 
-        loadSettings(ip, port, delay);
+        loadSettings(ip, port, delay, invertLX, invertLY, invertRX, invertRY);
 
         JButton save = new JButton();
 
@@ -45,6 +45,8 @@ public class Settings {
         settingsPanel.add(new JLabel("Invert Y right stick:"));
         settingsPanel.add(invertRY);
 
+        save.setText("Save Settings");
+
         save.addActionListener(_ -> {
             saveSettings(ip, port, delay, invertLX, invertLY, invertRX, invertRY);
         });
@@ -53,10 +55,17 @@ public class Settings {
         settingsWindow.getJFrame().add(settingsPanel);
     }
 
-    private void loadSettings(JTextField ip, JTextField port, JTextField delay) {
+    /* FIXME: There is a bug with this. */
+    private void loadSettings(JTextField ip, JTextField port, JTextField delay, Checkbox invertLX, Checkbox invertLY, Checkbox invertRX, Checkbox invertRY) {
         ip.setText(Configs.ip);
         port.setText(Integer.toString(Configs.port));
         delay.setText(Integer.toString(Configs.delay));
+
+        invertLX.setState(Configs.invertLX != 1);
+        invertLY.setState(Configs.invertLY != -1);
+        invertRX.setState(Configs.invertRX != -1);
+        invertRY.setState(Configs.invertRY != 1);
+
     }
 
     private void saveSettings(JTextField ip, JTextField port, JTextField delay, Checkbox invertLX, Checkbox invertLY, Checkbox invertRX, Checkbox invertRY) {

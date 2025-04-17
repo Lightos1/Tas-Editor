@@ -106,7 +106,7 @@ public class TopBar {
     }
 
     public void setClosedSettings(boolean closedSettings) {
-        this.closedStick = closedSettings;
+        this.closedSettings = closedSettings;
     }
 
 }
