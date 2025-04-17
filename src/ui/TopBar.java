@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public class TopBar {
 
-    private boolean closed = true;
+    private boolean closedStick = true;
+    private boolean closedSettings = true;
 
     public TopBar(JFrame jFrame, InputField inputField) {
         JMenuBar jMenuBar = new JMenuBar();
@@ -35,26 +36,36 @@ public class TopBar {
         JMenuItem stickInputs = new JMenuItem("Stick inputs");
         JMenuItem connectTas = new JMenuItem("Connect");
         JMenuItem disconnectController = new JMenuItem("Disconnect");
-        JMenuItem config = new JMenuItem("Configure");
+        JMenuItem settings = new JMenuItem("Settings");
 
         tasMenu.add(playTas);
         tasMenu.add(stickInputs);
         tasMenu.add(connectTas);
         tasMenu.add(disconnectController);
-        tasMenu.add(config);
+        tasMenu.add(settings);
 
         listenerStickInputs(stickInputs, inputField);
         detachListener(disconnectController);
         connectListener(connectTas);
+        listenerSettings(settings);
 
         jMenuBar.add(tasMenu);
     }
 
     private void listenerStickInputs(JMenuItem stickInputs, InputField inputField) {
         stickInputs.addActionListener(_ -> {
-            if (closed) {
+            if (closedStick) {
                 new StickInputWindow(this, inputField);
-                closed = false;
+                closedStick = false;
+            }
+        });
+    }
+
+    private void listenerSettings(JMenuItem settings) {
+        settings.addActionListener(_ -> {
+            if (closedSettings) {
+                new Settings(this);
+                closedSettings = false;
             }
         });
     }
@@ -81,8 +92,12 @@ public class TopBar {
         });
     }
 
-    public void setClosed(boolean closed) {
-        this.closed = closed;
+    public void setClosedStickInputs(boolean closedStick) {
+        this.closedStick = closedStick;
+    }
+
+    public void setClosedSettings(boolean closedSettings) {
+        this.closedStick = closedSettings;
     }
 
 }

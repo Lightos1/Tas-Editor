@@ -44,11 +44,20 @@ public class Window {
     }
 
     /* This is to prevent multiple stick input windows from being open at the same time. */
-    public void addCloseListener(TopBar topBar) {
+    public void addCloseListenerConfig(TopBar topBar) {
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                topBar.setClosed(true);
+                topBar.setClosedStickInputs(true);
+            }
+        });
+    }
+
+    public void addCloseListenerSettings(TopBar topBar) {
+        jFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                topBar.setClosedSettings(true);
             }
         });
     }
