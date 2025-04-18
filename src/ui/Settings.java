@@ -65,7 +65,6 @@ public class Settings {
         invertLY.setState(Configs.invertLY != -1);
         invertRX.setState(Configs.invertRX != -1);
         invertRY.setState(Configs.invertRY != 1);
-
     }
 
     private void saveSettings(JTextField ip, JTextField port, JTextField delay, Checkbox invertLX, Checkbox invertLY, Checkbox invertRX, Checkbox invertRY) {
@@ -82,21 +81,17 @@ public class Settings {
             Configs.delay = Integer.parseInt(delay.getText());
         }
 
-        if (invertLX.getState()) {
-            Configs.invertLX *= -1;
-        }
+        Configs.invertLX = invert(invertLX.getState(), -1, 1);
+        Configs.invertLY = invert(invertLY.getState(), 1, -1);
+        Configs.invertRX = invert(invertRX.getState(), 1, -1);
+        Configs.invertRY = invert(invertRY.getState(), -1, 1);
+    }
 
-        if (invertLY.getState()) {
-            Configs.invertLY *= -1;
+    private static int invert(boolean state, int isInverted, int notInverted) {
+        if (state) {
+            return isInverted;
         }
-
-        if (invertRX.getState()) {
-            Configs.invertRX *= -1;
-        }
-
-        if (invertRY.getState()) {
-            Configs.invertRY *= -1;
-        }
+        return notInverted;
     }
 
 }
