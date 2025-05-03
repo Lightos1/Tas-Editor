@@ -19,11 +19,10 @@ public class InputField {
     private final JTable inputs;
     private final Table tableModel;
     private int highlightedRow = 0;
+    private final int COLS = 19;
 
     public InputField(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
-
-        final int COLS = 19;
         int rows = 1;
 
         tableModel = new Table(rows, COLS);
@@ -60,6 +59,10 @@ public class InputField {
         inputs.setForeground(Color.WHITE);
         inputs.setSelectionBackground(Color.BLACK);
         inputs.setSelectionForeground(Color.WHITE);
+    }
+
+    public int getCols() {
+        return COLS;
     }
 
     public JTable getInputs() {

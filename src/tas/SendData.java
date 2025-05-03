@@ -1,7 +1,5 @@
 package tas;
 
-import ui.InputField;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,11 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ReadAndSendData {
+public class SendData {
 
     /* TODO: Improve this. */
     public static void playTas() {
-        String[] inputs = readFile();
+        String[] inputs = ReadData.readFile();
 
         try (Socket socket = new Socket(Configs.ip, Configs.port)) {
             for (int i = 0; i < inputs.length; i++) {
@@ -46,23 +44,6 @@ public class ReadAndSendData {
         out.println(content + "\r\n");
     }
 
-    private static String[] readFile() {
-        String path = "C:\\Users\\user\\Desktop\\inputs.txt";
-        ArrayList<String> inputs = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String buffer;
-            while ((buffer = reader.readLine()) != null) {
-                buffer = buffer.trim();
-
-                if (!buffer.isEmpty()) {
-                    inputs.add(buffer);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading the file: " + e.getMessage());
-        }
-        return inputs.toArray(new String[0]);
-    }
 
 }

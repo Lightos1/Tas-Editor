@@ -1,6 +1,6 @@
 package inputs;
 
-import tas.ReadAndSendData;
+import tas.SendData;
 import ui.InputField;
 import tas.WriteData;
 
@@ -22,7 +22,7 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_ENTER -> inputField.addRow();
             case KeyEvent.VK_BACK_SPACE -> inputField.deleteRow();
             case KeyEvent.VK_W -> WriteData.saveInputs(inputField);
-            case KeyEvent.VK_R -> ReadAndSendData.playTas();
+            case KeyEvent.VK_R -> SendData.playTas();
         }
     }
 

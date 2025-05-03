@@ -2,7 +2,6 @@ package tas;
 
 import ui.InputField;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ public class WriteData {
 
         /* TODO: Improve this. */
         if (Configs.path.isEmpty()) {
-            Configs.path = IO.getPath();
+            Configs.path = ReadData.getPath();
 
             if (Configs.path == null) {
                 return;

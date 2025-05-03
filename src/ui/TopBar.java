@@ -1,7 +1,7 @@
 package ui;
 
-import tas.IO;
-import tas.ReadAndSendData;
+import tas.ReadData;
+import tas.SendData;
 import tas.WriteData;
 
 import javax.swing.*;
@@ -65,7 +65,7 @@ public class TopBar {
 
     private void addOpenListener(JMenuItem open, InputField inputField) {
         open.addActionListener(_ -> {
-            IO.restoreFromFile(inputField);
+            ReadData.restoreFromFile(inputField);
         });
     }
 
@@ -91,7 +91,7 @@ public class TopBar {
     private void detachListener(JMenuItem disconnectController) {
         disconnectController.addActionListener(_ -> {
             try {
-                ReadAndSendData.disconnect();
+                SendData.disconnect();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -102,7 +102,7 @@ public class TopBar {
     private void connectListener(JMenuItem connectTas) {
         connectTas.addActionListener(_ -> {
             try {
-                ReadAndSendData.connectAndConfigure();
+                SendData.connectAndConfigure();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
