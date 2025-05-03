@@ -57,13 +57,6 @@ public class ReadData {
         String[][] inputTableData = new String[rows][inputs.getCols() - 1];
         emptyInputTableData(inputTableData);
         processData(fileInputData, inputTableData);
-
-        for (int i = 0; i < inputTableData.length; i++) {
-            for (int j = 0; j < inputTableData[i].length; j++) {
-                System.out.print(inputTableData[i][j]);
-            }
-            System.out.println();
-        }
     }
 
     private static int addRows(InputField inputs) {
@@ -142,7 +135,7 @@ public class ReadData {
                     }
 
                     /* Find index for 2D-Array. */
-                    int index = getIndex(buff, inputTableData);
+                    int index = getIndex(buff);
 
                     if (index == -1) {
                         return;
@@ -185,7 +178,7 @@ public class ReadData {
         }
     }
 
-    private static int getIndex(String input, String[][] inputTableData) {
+    private static int getIndex(String input) {
         String[] lookupArray = {"A", "B", "X", "Y", "ZR", "ZL", "R", "L", "PLUS", "MINUS", "DLEFT", "DUP", "DRIGHT", "DDOWN", "LSTICK", "RSTICK"};
         String value;
 
