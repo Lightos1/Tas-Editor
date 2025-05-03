@@ -23,10 +23,9 @@ public class IO {
 
     private static void addRows(InputField inputs) {
         try (BufferedReader read = new BufferedReader(new FileReader(Configs.path))) {
-            String buff;
             boolean firstLine = true;
 
-            while ((buff = read.readLine()) != null) {
+            while (read.readLine() != null) {
                 if (firstLine) {
                     firstLine = false;
                     continue;
