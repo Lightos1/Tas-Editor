@@ -25,33 +25,15 @@ public class WriteData {
 
         /* TODO: Improve this. */
         if (Configs.path.isEmpty()) {
-            Configs.path = getPath();
-        }
+            Configs.path = IO.getPath();
 
-        if (Configs.path == null) {
-            return;
+            if (Configs.path == null) {
+                return;
+            }
         }
 
         writeToFile(Configs.path, instructions);
     }
-
-    private static String getPath() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Failed to open explorer: " + e.getMessage());
-        }
-
-        JFileChooser explorer = new JFileChooser();
-        explorer.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int result = explorer.showSaveDialog(null);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            return explorer.getSelectedFile().getAbsolutePath();
-        }
-        return null;
-    }
-
 
     private static String[][] convertInputs(InputField inputs, int row, int col) {
         String[][] inputData = new String[row][col];

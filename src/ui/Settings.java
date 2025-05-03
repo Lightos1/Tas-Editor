@@ -68,7 +68,6 @@ public class Settings {
     }
 
     private void saveSettings(JTextField ip, JTextField port, JTextField delay, Checkbox invertLX, Checkbox invertLY, Checkbox invertRX, Checkbox invertRY) {
-
         if (!ip.getText().isEmpty()) {
             Configs.ip = ip.getText();
         }

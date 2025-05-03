@@ -1,5 +1,6 @@
 package ui;
 
+import tas.IO;
 import tas.ReadAndSendData;
 import tas.WriteData;
 
@@ -29,6 +30,7 @@ public class TopBar {
         fileMenu.add(open);
 
         addSaveListener(save, inputField);
+        addOpenListener(open, inputField);
 
         jMenuBar.add(fileMenu);
     }
@@ -58,6 +60,12 @@ public class TopBar {
     private void addSaveListener(JMenuItem save, InputField inputField) {
         save.addActionListener(_ -> {
             WriteData.saveInputs(inputField);
+        });
+    }
+
+    private void addOpenListener(JMenuItem open, InputField inputField) {
+        open.addActionListener(_ -> {
+            IO.restoreFromFile(inputField);
         });
     }
 
