@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class IO {
 
@@ -22,20 +25,19 @@ public class IO {
     }
 
     private static void addRows(InputField inputs) {
-        try (BufferedReader read = new BufferedReader(new FileReader(Configs.path))) {
-            boolean firstLine = true;
+        /* Clear it so they don't get added instead of loaded. */
+        inputs.clearAllRows();
+        int rows;
 
-            while (read.readLine() != null) {
-                if (firstLine) {
-                    firstLine = false;
-                    continue;
-                }
+        try (Stream<String> lines = Files.lines(Paths.get(Configs.path))) {
+            rows = (int) lines.count();
 
+            /* Don't add the first row. */
+            for (int i = 1; i < rows; i++) {
                 inputs.addRow();
             }
-
         } catch (IOException e) {
-            System.out.println("Failed to restore from file: " + e.getMessage());
+            System.out.println("Failed to read row count: " + e.getMessage());
         }
     }
 

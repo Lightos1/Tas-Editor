@@ -101,6 +101,11 @@ public class InputField {
         highlightedRow--;
     }
 
+    public void clearAllRows() {
+        tableModel.clearAllRows();
+        highlightedRow = 0;
+    }
+
     public static class Table extends AbstractTableModel {
 
         private final List<Object[]> inputs;
@@ -111,6 +116,12 @@ public class InputField {
             for (int i = 0; i < row; i++) {
                 inputs.add(new Object[cols]);
             }
+        }
+
+        public void clearAllRows() {
+            inputs.clear();
+            inputs.add(new Object[getColumnCount()]);
+            fireTableDataChanged();
         }
 
         @Override
