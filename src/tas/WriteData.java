@@ -71,22 +71,20 @@ public class WriteData {
     private static void addStickInputs(String[] instructions, InputField inputs, int row, int col) {
         int k = col;
 
-        String[] charSet = {"%", ",&"};
+        String[] charSet = {"%", "&"};
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < 2; j++) {
                 if (inputs.getTableModel().getValueAt(i,k) != null && !inputs.getTableModel().getValueAt(i,k).toString().isEmpty()) {
-                    if (j == 0) {
-                        if (instructions[i].isEmpty()) {
-                            instructions[i] += "clickSeq ";
-                            } else {
-                                instructions[i] += ",";
-                        }
+                    if (instructions[i].isEmpty()) {
+                        instructions[i] += "clickSeq ";
+                    } else {
+                        instructions[i] += ",";
                     }
 
                     instructions[i] += charSet[j] + inputs.getTableModel().getValueAt(i, k);
-                    k++;
                 }
+                k++;
             }
             k = col;
         }

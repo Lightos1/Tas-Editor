@@ -57,6 +57,17 @@ public class ReadData {
         String[][] inputTableData = new String[rows][inputs.getCols() - 1];
         emptyInputTableData(inputTableData);
         processData(fileInputData, inputTableData);
+        fixInputs(inputTableData);
+        /* Yet another lazy fix. */
+        fixStickInputs(inputTableData);
+        applyInputs(inputTableData, inputs);
+
+        for (int i = 0; i < inputTableData.length; i++) {
+            for (int j = 0; j < inputTableData[0].length; j++) {
+                System.out.print(inputTableData[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     private static int addRows(InputField inputs) {
@@ -138,7 +149,8 @@ public class ReadData {
                     int index = getIndex(buff);
 
                     if (index == -1) {
-                        return;
+                        buff = "";
+                        continue;
                     }
 
                     inputTableData[i][index] = buff;
@@ -190,6 +202,10 @@ public class ReadData {
             value = input;
         }
 
+        if (value.startsWith("W")) {
+            return -1;
+        }
+
         /* Return the index */
         for (int i = 0; i < lookupArray.length; i++) {
             if (value.equals(lookupArray[i])) {
@@ -201,6 +217,50 @@ public class ReadData {
         System.out.println("Failed to get index!");
         System.out.println(value);
         return -1;
+    }
+
+    private static void fixInputs(String[][] inputs) {
+        boolean set = false;
+        String value = "";
+
+        for (int i = 0; i < inputs[0].length - 2; i++) {
+            for (int j = 0; j < inputs.length; j++) {
+                /* Could trim it earlier, but I don't care. */
+                if (inputs[j][i].startsWith("+")) {
+                    inputs[j][i] = inputs[j][i].substring(1);
+                    set = true;
+                    value = inputs[j][i];
+                    continue;
+                }
+
+                if (set) {
+                    inputs[j][i] = value;
+                }
+
+                if (inputs[j][i].startsWith("-")) {
+                    set = false;
+                }
+            }
+            set = false;
+        }
+    }
+
+    private static void fixStickInputs(String[][] inputs) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = inputs[0].length - 2; j < inputs[0].length; j++) {
+                if (inputs[i][j].startsWith("%") || inputs[i][j].startsWith("&")) {
+                    inputs[i][j] = inputs[i][j].substring(1);
+                }
+            }
+        }
+    }
+
+    private static void applyInputs(String[][] inputs, InputField inputField) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[0].length; j++) {
+                inputField.getTableModel().setValueAt(inputs[i][j], i, j + 1);
+            }
+        }
     }
 
     public static String getPath() {
