@@ -133,7 +133,6 @@ public class ReadData {
                     buff += charBuff;
                 }
 
-                /* If we are not at the end of the line AND charBuff is either , or j is at the end of the line, if charBuff is equal to , take the substring from the start of the buffer to the end, minus 1? WTF. */
                 if (!detectedStickEndOfLine && (charBuff == ',' || j == fileInputData[i].length() - 1)) {
                     /* Trim trailing commas. */
                     if (charBuff == ',') {
