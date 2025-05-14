@@ -61,13 +61,6 @@ public class ReadData {
         /* Yet another lazy fix. */
         fixStickInputs(inputTableData);
         applyInputs(inputTableData, inputs);
-
-        for (int i = 0; i < inputTableData.length; i++) {
-            for (int j = 0; j < inputTableData[0].length; j++) {
-                System.out.print(inputTableData[i][j]);
-            }
-            System.out.println();
-        }
     }
 
     private static int addRows(InputField inputs) {
@@ -140,7 +133,9 @@ public class ReadData {
                     buff += charBuff;
                 }
 
+                /* If we are not at the end of the line AND charBuff is either , or j is at the end of the line, if charBuff is equal to , take the substring from the start of the buffer to the end, minus 1? WTF. */
                 if (!detectedStickEndOfLine && (charBuff == ',' || j == fileInputData[i].length() - 1)) {
+                    /* Trim trailing commas. */
                     if (charBuff == ',') {
                         buff = buff.substring(0, buff.length() - 1);
                     }
@@ -163,14 +158,18 @@ public class ReadData {
                         while (j < fileInputData[i].length()) {
                             charBuff = fileInputData[i].charAt(j);
                             buff += charBuff;
-                            j++;
-                            if (buff.charAt(buff.length() - 1) == ',' &&  charBuff == '&') {
+                            if (buff.charAt(buff.length() - 2) == ',' &&  charBuff == '&') {
+                                buff = buff.substring(0, buff.length() - 2);
+                                j--;
                                 break;
                             }
+                            j++;
                         }
                         inputTableData[i][inputTableData[i].length - 2] = buff;
+                        buff = "";
                     } else if (charBuff == '&') {
-                        while (j == fileInputData[i].length() - 1) {
+                        buff += charBuff;
+                        while (j < fileInputData[i].length() - 1) {
                             charBuff = fileInputData[i].charAt(j);
                             /* This is not particularly efficient, but I am not fixing it :) */
                             buff += charBuff;
@@ -215,7 +214,6 @@ public class ReadData {
 
         /* Failure. */
         System.out.println("Failed to get index!");
-        System.out.println(value);
         return -1;
     }
 
@@ -233,15 +231,18 @@ public class ReadData {
                     continue;
                 }
 
+                if (inputs[j][i].startsWith("-")) {
+                    set = false;
+                    inputs[j][i] = value;
+                    continue;
+                }
+
                 if (set) {
                     inputs[j][i] = value;
                 }
-
-                if (inputs[j][i].startsWith("-")) {
-                    set = false;
-                }
             }
             set = false;
+            value = "";
         }
     }
 

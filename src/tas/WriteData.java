@@ -49,7 +49,6 @@ public class WriteData {
         return inputData;
     }
 
-    /* FIXME: There is an issue with the delay when having multiple inputs on col x and inputs on col x-n while being on the same row. */
     private static void addDelays(String[] instructions) {
         int lastNotEmpty = -1;
         int j = 0;
@@ -59,7 +58,6 @@ public class WriteData {
                 j++;
             } else {
                 if (lastNotEmpty != -1 && j > 1) {
-                    /* TODO: The delay time is hardcoded right now, will depend on the actual config later. */
                     instructions[lastNotEmpty] += ",W" + (Configs.delay * j);
                     j = 0;
                 }
