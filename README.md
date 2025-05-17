@@ -45,3 +45,5 @@ With an almost 100% certainty, there are bugs in the tas-editor left.
 
 ## Credits:
 - [olliz0r](https://github.com/olliz0r): [sys-botbase](https://github.com/olliz0r/sys-botbase)
+- Frapo for help with the original (trashy) tas editor
+- [MonsterDruide](https://github.com/MonsterDruide1): UI inspiration
