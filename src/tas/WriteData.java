@@ -2,6 +2,7 @@ package tas;
 
 import ui.InputField;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Objects;
 
@@ -210,6 +211,51 @@ public class WriteData {
             }
         }
         return false;
+    }
+
+    public static void saveConfig() {
+        String appDataPath = System.getenv("LOCALAPPDATA");
+        String confName = "tas_editor.conf";
+
+        File tasEditor = new File(appDataPath + File.separator + "Tas_Editor");
+        if (!tasEditor.exists()) {
+            if (!tasEditor.mkdir()) {
+                JOptionPane.showMessageDialog(null, "Failed to create folder");
+            }
+        }
+        createConfFile(confName, tasEditor);
+        writeToConf(appDataPath, confName);
+    }
+
+    private static void createConfFile(String conf, File folder) {
+        File confFile = new File(folder, conf);
+
+        if (!confFile.exists()) {
+            try {
+                if (!confFile.createNewFile()) {
+                    JOptionPane.showMessageDialog(null, "Failed to create config file");
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Failed to create config file" + e.getMessage());
+            }
+        }
+    }
+
+    private static void writeToConf(String path, String confName) {
+        File confFile = new File(path + File.separator + "Tas_Editor" + File.separator + confName);
+
+        try (FileWriter writer = new FileWriter(confFile)) {
+            writer.write(Configs.port + "\n");
+            writer.write(Configs.ip + "\n");
+            writer.write(Configs.delay + "\n");
+            writer.write(Configs.invertLX + "\n");
+            writer.write(Configs.invertLY + "\n");
+            writer.write(Configs.invertRX + "\n");
+            writer.write(Configs.invertRY + "\n");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to write to file: " + e.getMessage());
+        }
     }
 
 }

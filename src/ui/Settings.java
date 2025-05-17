@@ -2,6 +2,7 @@ package ui;
 
 import main.Window;
 import tas.Configs;
+import tas.WriteData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,6 +85,7 @@ public class Settings {
         Configs.invertLY = invert(invertLY.getState(), 1, -1);
         Configs.invertRX = invert(invertRX.getState(), 1, -1);
         Configs.invertRY = invert(invertRY.getState(), -1, 1);
+        WriteData.saveConfig();
     }
 
     private static int invert(boolean state, int isInverted, int notInverted) {

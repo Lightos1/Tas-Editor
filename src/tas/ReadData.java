@@ -4,6 +4,7 @@ import ui.InputField;
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +14,40 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class ReadData {
+
+    public static void readConf() {
+        String appDataPath = System.getenv("LOCALAPPDATA");
+        String confName = "tas_editor.conf";
+        String[] conf = new String[7];
+
+        File playlistFile = new File(appDataPath + File.separator + "Tas_Editor" + File.separator + confName);
+
+        if (!playlistFile.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(playlistFile))) {
+            String buffer;
+
+            for (int i = 0; (buffer = reader.readLine()) != null; i++) {
+                conf[i] = buffer;
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load config file: " + e.getMessage());
+        }
+
+        applyConf(conf);
+    }
+
+    private static void applyConf(String[] conf) {
+        Configs.port = Integer.parseInt(conf[0]);
+        Configs.ip = conf[1];
+        Configs.delay = Integer.parseInt(conf[2]);
+        Configs.invertLX = Integer.parseInt(conf[3]);
+        Configs.invertLY = Integer.parseInt(conf[4]);
+        Configs.invertRX = Integer.parseInt(conf[5]);
+        Configs.invertRY = Integer.parseInt(conf[6]);
+    }
 
     public static String[] readFile() {
         ArrayList<String> inputs = new ArrayList<>();
