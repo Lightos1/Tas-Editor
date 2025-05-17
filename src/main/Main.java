@@ -9,7 +9,6 @@ import java.awt.*;
 public class Main {
 
     public Main() {
-        System.out.println("test");
         ReadData.readConf();
         MainPanel mainPanel = new MainPanel();
         UI ui = new UI(mainPanel);
