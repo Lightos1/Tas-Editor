@@ -41,7 +41,7 @@ To actually run it, either press ``R`` or Tas > Play.
 Opening files is also straight forward: Files > Open, there is no keyboard shortcut yet.<br>
 Note that there may be bugs such as input loss (sorry) with opening files, please report them.🙏
 
-In general, there to an almost 100% certainty a lot of bugs in th editor.
+With an almost 100% certainty, there are bugs in the editor left.
 
 ## Credits:
 - [olliz0r](https://github.com/olliz0r): [sys-botbase](https://github.com/olliz0r/sys-botbase)
