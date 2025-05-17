@@ -15,10 +15,9 @@ import java.util.stream.Stream;
 public class ReadData {
 
     public static String[] readFile() {
-        String path = "C:\\Users\\user\\Desktop\\inputs.txt";
         ArrayList<String> inputs = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Configs.path))) {
             String buffer;
             while ((buffer = reader.readLine()) != null) {
                 buffer = buffer.trim();
@@ -133,7 +132,7 @@ public class ReadData {
                     buff += charBuff;
                 }
 
-                if (!detectedStickEndOfLine && (charBuff == ',' || j == fileInputData[i].length() - 1)) {
+                    if (!detectedStickEndOfLine && (charBuff == ',' || j == fileInputData[i].length() - 1)) {
                     /* Trim trailing commas. */
                     if (charBuff == ',') {
                         buff = buff.substring(0, buff.length() - 1);
