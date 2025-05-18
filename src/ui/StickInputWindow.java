@@ -1,6 +1,7 @@
 package ui;
 
 import main.Window;
+import tas.Configs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,8 @@ public class StickInputWindow {
         stickInputsWindow.addCloseListenerConfig(topBar);
         JPanel stickPanel = new JPanel(new GridLayout(1, 2));
 
-        StickPanel leftStick = new StickPanel(inputField, Sticktype.LEFT, 1, -1);
-        StickPanel rightStick = new StickPanel(inputField, Sticktype.RIGHT, -1, 1);
+        StickPanel leftStick = new StickPanel(inputField, Sticktype.LEFT, Configs.invertLX, Configs.invertLY);
+        StickPanel rightStick = new StickPanel(inputField, Sticktype.RIGHT, Configs.invertRX, Configs.invertRY);
 
         stickPanel.add(leftStick);
         stickPanel.add(rightStick);
