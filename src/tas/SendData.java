@@ -1,23 +1,27 @@
 package tas;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 
 public class SendData {
 
-    /* TODO: Improve this. */
+    /* TODO: FIXME: Buttons now get dropped after changes :( */
     public static void playTas() {
         String[] inputs = ReadData.readFile();
+        if (inputs == null) {
+            return;
+        }
 
         try (Socket socket = new Socket(Configs.ip, Configs.port)) {
+            OutputStream out = socket.getOutputStream();
+            socket.setTcpNoDelay(true);
+
             for (int i = 0; i < inputs.length; i++) {
-                sendInput(socket, inputs[i]);
+                out.write((inputs[i] + "\r\n").getBytes(StandardCharsets.UTF_8));
+                out.flush();
             }
-        } catch (IOException e) {
+        } catch (IOException _) {
 
         }
     }
@@ -40,10 +44,8 @@ public class SendData {
     }
 
     private static void sendInput(Socket socket, String content) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(content + "\r\n");
+        OutputStream out = socket.getOutputStream();
+        out.write((content + "\r\n").getBytes(StandardCharsets.UTF_8));
     }
-
-
 
 }

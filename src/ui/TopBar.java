@@ -53,6 +53,7 @@ public class TopBar {
         detachListener(disconnectController);
         connectListener(connectTas);
         listenerSettings(settings);
+        playListener(playTas);
 
         jMenuBar.add(tasMenu);
     }
@@ -106,6 +107,12 @@ public class TopBar {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+    }
+
+    private void playListener(JMenuItem playTas) {
+        playTas.addActionListener(_ -> {
+            SendData.playTas();
         });
     }
 

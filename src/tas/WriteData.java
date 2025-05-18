@@ -23,11 +23,10 @@ public class WriteData {
         addStickInputs(instructions, inputs, row, col);
         cleanUp(instructions);
 
-        /* TODO: Improve this. */
         if (Configs.path.isEmpty()) {
             Configs.path = ReadData.getPath();
 
-            if (Configs.path == null) {
+            if (Configs.path.isEmpty()) {
                 return;
             }
         }

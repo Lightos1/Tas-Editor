@@ -50,6 +50,12 @@ public class ReadData {
     }
 
     public static String[] readFile() {
+        /* TODO: Handle empty path in a better way. */
+        if (Configs.path.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "File was never saved!");
+            return null;
+        }
+
         ArrayList<String> inputs = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(Configs.path))) {
@@ -70,7 +76,7 @@ public class ReadData {
     public static void restoreFromFile(InputField inputs) {
         Configs.path = getPath();
 
-        if (Configs.path == null) {
+        if (Configs.path.isEmpty()) {
             return;
         }
 
@@ -311,7 +317,7 @@ public class ReadData {
         if (result == JFileChooser.APPROVE_OPTION) {
             return explorer.getSelectedFile().getAbsolutePath();
         }
-        return null;
+        return "";
     }
 
 }
