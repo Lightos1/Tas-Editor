@@ -64,7 +64,7 @@ public class Settings {
 
         invertLX.setState(Configs.invertLX != 1);
         invertLY.setState(Configs.invertLY != -1);
-        invertRX.setState(Configs.invertRX != -1);
+        invertRX.setState(Configs.invertRX != 1);
         invertRY.setState(Configs.invertRY != 1);
     }
 

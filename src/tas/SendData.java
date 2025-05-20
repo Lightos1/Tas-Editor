@@ -3,10 +3,10 @@ package tas;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.locks.LockSupport;
 
 public class SendData {
 
-    /* TODO: FIXME: Buttons now get dropped after changes :( */
     public static void playTas() {
         String[] inputs = ReadData.readFile();
         if (inputs == null) {
@@ -15,12 +15,14 @@ public class SendData {
 
         try (Socket socket = new Socket(Configs.ip, Configs.port)) {
             OutputStream out = socket.getOutputStream();
-            socket.setTcpNoDelay(true);
+            socket.setTcpNoDelay(false);
 
             for (int i = 0; i < inputs.length; i++) {
                 out.write((inputs[i] + "\r\n").getBytes(StandardCharsets.UTF_8));
                 out.flush();
+                LockSupport.parkNanos(66_000_000);
             }
+
         } catch (IOException _) {
 
         }
